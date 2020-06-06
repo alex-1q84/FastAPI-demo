@@ -6,7 +6,7 @@ from app.api.models import NoteDB, NoteSchema
 router = APIRouter()
 
 
-@router.post("/", response_model=NoteDB, status_code=201)
+@router.post("/notes/", response_model=NoteDB, status_code=201)
 async def create_note(payload: NoteSchema):
     note_id = await crud.post(payload)
 
