@@ -24,3 +24,7 @@ async def put(id: int, payload: NoteSchema):
              .values(title=payload.title, description=payload.description)
              .returning(notes.c.id))
     return database.execute(query=query)
+
+
+async def delete(id: int):
+    pass
