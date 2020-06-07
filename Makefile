@@ -8,8 +8,11 @@ test:
 run:
 	cd src; uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
 
-db:
+start-db:
 	docker-compose -f pgsql.yml up -d
+
+stop-db:
+	docker-compose -f pgsql.yml stop
 
 clean:
 	rm -rf venv
