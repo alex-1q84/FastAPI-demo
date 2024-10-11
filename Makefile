@@ -1,14 +1,24 @@
-VENVPATH = venv/bin
+VENV = venv
+VENVPATH = $(VENV)/bin
 PYTHON = $(VENVPATH)/python3
+DEPENDENCY = requirements.txt
+DEPENDENCY_TARGET = requirements.txt.build
 PYTEST = $(VENVPATH)/pytest
 UVICORN = $(VENVPATH)/uvicorn
 
-init:
-	python3 -m venv venv
-	$(PYTHON) -m pip install -r src/requirements.txt
+init: $(VENV) $(DEPENDENCY_TARGET)
+	$(PYTHON) -m pip install -r $(DEPENDENCY_TARGET)
+	@echo "init completed"
+
+$(VENV):
+	python3 -m venv $(VENV)
+
+$(DEPENDENCY_TARGET):
+	cp $(DEPENDENCY) $(DEPENDENCY_TARGET)
+
 
 upgrade:
-	$(PYTHON) -m pip install --upgrade -r src/requirements.txt
+	$(PYTHON) -m pip install --upgrade -r $(DEPENDENCY_TARGET)
 
 test:
 	cd src; ../$(PYTEST) .
